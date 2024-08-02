@@ -1,0 +1,79 @@
+Parameter	Value	Type	Description
+secondary_tier	1	Num	Integer. Index of the other interval tier from which labels should be extracted (0 = none, -1 = all interval tiers)
+extract_F0	1	Num	0 or 1. Set to 1 to extract F0
+extract_intensity	1	Num	0 or 1. Set to 1 to extract intensity, or to 0
+extract_formants	1	Num	0 or 1. Set to 1 to extract formants, or to 0
+extract_CoG	1	Num	0 or 1. Set to 1 to extract spectral center of gravity (CoG) and energy in bands defined by frequencyBandsDefinitionForCoGcomputationFile, or to 0. Uses the same parameters as spectral dispersion extraction.
+extract_spectral_dispersion	1	Num	0 or 1. Set to 1 to extract spectral dispersion, or to 0. Uses the same parameters as CoG extraction.
+extract_spectral_tilt	1	Num	0 or 1. Set to 1 to extract spectral tilt (band energy difference), or to 0. Uses the same parameters as CoG extraction, plus definition of frequency bands used in spectral tilt computation.
+extract_HNR	1	Num	0 or 1. Set to 1 to extract harmonics-to-noise ratio (HNR), or to 0
+extract_ZCR	1	Num	0 or 1. Set to 1 to extract zero-crossing rate (ZCR), or to 0
+extract_MFCC	1	Num	0 or 1. Set to 1 to extract MFCC coefficients, or to 0
+extract_CPP	1	Num	0 or 1. Set to 1 to extract MFCC coefficients, or to 0
+extract_signal_value	0	Num	0 or 1. Set to 1 to extract raw signal values, or to 0
+extract_left_and_right_context	1	Num	0 or 1. Set to 1 to extract left and right context (in the reference tier), or to 0
+get_mean	0	Num	0 or 1. Set to 1 to extract the mean for each acoustic parameter x target interval
+get_median	0	Num	0 or 1. Set to 1 to extract the median for each acoustic parameter x target interval
+get_standard_deviation	0	Num	0 or 1. Set to 1 to extract the standard deviation for each acoustic parameter x target interval
+get_min_max_with_time	0	Num	0 or 1. Set to 1 to extract min and max values and corresponding relative times for each acoustic parameter x target interval
+export_sound_files_name	0	Num	0 or 1. Set to 1 to export the names of processed sounds in the results file. If set to 0, only TextGrid files will be exported.
+searchAndReplaceInLabels	1	Num	0 or 1. Set to 1 to search for regex regexToReplaceInLabels in labels and replace with string replacementStringInLabels.
+regexToReplaceInLabels	[\n\r\t]	Txt	Regex to be replaced with the value of parameter replacementStringInLabels.
+replacementStringInLabels	 	Txt	Defines which string should be used in output instead of strings matching regexToReplaceInLabels found in labels.
+offset_for_acoustic_parameters_extraction_milliseconds	120	Num	Positive number (milliseconds). Duration of signal taken into account for analyzes around target intervals.
+target_channel	1	Num	0, 1 or 2, use 1 as a default value. Channel to be used if input sounds are stereo. 0 = mix channels 1 and 2.
+timeStepF0detection	0	Num	Numeric (seconds). Time step used in F0 detection. Set to 0 for automatic time step.
+minF0	70	Num	Numeric (Hertz). Minimum F0 value used in function "To Pitch" for F0 extraction. Adjust according to speaker(s) specificities to minimize octave jumps. This parameter is also used for the extraction of intensity (function "To Intensity") and HNR (function "To Harmonicity (cc)").
+maxF0	600	Num	Numeric (Hertz). Maximum F0 value used in function "To Pitch" for F0 extraction. Adjust according to speaker(s) specificities to minimize octave jumps.
+timeStepFormantsDetection	0	Num	Numeric (seconds). Time step used in F0 detection. Set to 0 for automatic time step.
+timeStepIntensityExtraction	0	Num	Numeric (seconds). Time step used for intensity extraction. Set to 0 for automatic time step.
+subtractMeanFromIntensityValues	no	Txt	Possible values: yes or no. Indicates wether intensity values should be normalized by subtracting mean value in each processed interval. Used by function "To Intensity".
+maxFrequencyForFormantsDetection	5500	Num	Numeric (Hertz). Maximum frequency of the highest detected formant. Typical values for 5 formants (parameter nDetectedFormants): 5000 Hz for male speakers, 5500 Hz for female speakers.
+nDetectedFormants	5	Num	Positive, minimum value = 4. Number of expected formants used in function "To Formant" for formant values extraction. May be set to a decimal value, e.g. 5.5 formants.
+windowLengthFormantsDetectionSeconds	0.025	Num	Numeric (seconds). Window duration used in formants tracking (function "To Formant").
+preEmphasisFormantsDetectionHertz	50	Num	Numeric (Hertz). Pre-emphasis value used in function "To Formant".
+windowShapeForCenterOfGravityComputation	Gaussian1	Txt	Possible values: rectangular, triangular, parabolic, Hanning, Hamming, Gaussian1, Gaussian2, Gaussian3, Gaussian4, Gaussian5, Kaiser1, Kaiser2. Window shape used for the extraction of sound slices prior to CoG computation (function "Extract part").
+relativeWidthForCenterOfGravityComputation	1	Num	Positive number, default value: 1. Relative window width used for the extraction of sound slices prior to CoG computation (function "Extract part").
+useFFTinCenterOfGravityComputation	no	Txt	Possible values: yes or no. If set to "yes", the fast version of the Fourier transform will be used in function "To Spectrum" when extracting center of gravity.
+cepstralSmoothingBandwidthForCenterOfGravityComputationHz	200	Num	Numeric (Hertz). Set to 0 to discard cepstral smoothing. Bandwith value for cepstral smoothing of spectra prior to CoG and/or spectral dispersion computation.
+powerValueInCenterOfGravityComputation	2	Num	Positive integer, default 2. Power value used in function "Get centre of gravity".
+extractsDurationForCoGcomputationMilliseconds	25	Num	Numeric (milliseconds). Window duration for the computation of spectral center of gravity (CoG).
+timestepForCoGcomputationMilliseconds	10	Num	Numeric (milliseconds). Timestep of the sliding window used for the computation of spectral center of gravity (CoG) variability and min/max measures.
+frequencyBandsDefinitionForCoGcomputationFile	frequency_bands_boundaries_0_8kHz_step50Hz.txt	Txt	File name (or relative path), or "none" to keep all available frequencies. The file must have to tab-separate columns named minFreq and maxFreq, with a row with values in Hertz for each target frequency band. Frequencies outside band definition range will be filtered out prior to CoG computation. If frequency bands are defined and CoG and/or spectral dispersion extraction is on, the total energy in dB in each band will also be extracted.
+spectralSmoothingForCoGcomputationOnBandsHertz	100	Num	Numeric (Hertz). Spectral smoothing applied when filtering out frequencies outside frequency bands. Parameter used only if parameter frequencyBandsDefinitionForCoGcomputationFile is not "none".
+spectralTiltFirstBandLowFrequency	0	Num	Numeric (Hertz). Lower bound of the first frequency band used in spectral tilt computation.
+spectralTiltFirstBandHighFrequency	1000	Num	Numeric (Hertz). Higher bound of the first frequency band used in spectral tilt computation.
+spectralTiltSecondBandLowFrequency	1000	Num	Numeric (Hertz). Lower bound of the second frequency band used in spectral tilt computation.
+spectralTiltSecondBandHighFrequency	4000	Num	Numeric (Hertz). Higher bound of the second frequency band used in spectral tilt computation.
+includeRaisingPartsInZeroCrossingRateComputation	yes	Txt	Possible values: yes or no. Default value: "yes". If set to "yes", raising parts of the acoustic signal will be considered as zero-crossings in function "To PointProcess (zeroes)".
+includeFallingPartsInZeroCrossingRateComputation	no	Txt	Possible values: yes or no. Default value: "no". If set to "yes", falling parts of the acoustic signal will be considered as zero-crossings in function "To PointProcess (zeroes)".
+extractsDurationForZCRcomputationMilliseconds	10	Num	Numeric (milliseconds). Window duration for the computation of Zero Crossing Rate (ZCR).
+timestepForZCRcomputationMilliseconds	5	Num	Numeric (milliseconds). Timestep of the sliding window used for the computation of Zero Crossing Rate (ZCR) variability and min/max measures.
+timeStepHNRextraction	0.01	Num	Numeric (seconds). Default: 0.01. Time step used for HNR extraction (function "To Harmonicity (cc)").
+silenceTresholdHNRextraction	0.1	Num	Numeric. Default: 0.1. Silence treshold used for HNR extraction (function "To Harmonicity (cc)"). Set to 0 for automatic time step.
+periodsPerWindowHNRextraction	1	Num	Numeric. Default: 1. Number of periods per window used for HNR extraction (function "To Harmonicity (cc)"). Set to 0 for automatic time step.
+interpolationMethodUsedInHNRextraction	Cubic	Txt	Possible values: Nearest, Linear, Cubic, Sinc70, Sinc700. Default: "Cubic". Interpolation method used to get the HNR value at a specific time point.
+minFrequencyUsedInBandPassFilterForHNRcomputation	1000	Num	Numeric (Hertz). Default: 0 (keep everything). Lower bound of the frequency band used in HNR computation (filtering prior to computation).
+maxFrequencyUsedInBandPassFilterForHNRcomputation	undefined	Num	Numeric (Hertz). Default: undefined (keep everything). Higher bound of the frequency band used in HNR computation (filtering prior to computation).
+smoothingUsedInBandPassFilterForHNRcomputation	10	Num	Numeric (Hertz). Default: 10Hz. Smoothing value used in the filtering prior to HNR computation.
+numberOfMFCCcoefficients	12	Num	Numeric. Number of MFCC coefficients computed (function "To MFCC").
+windowLengthMFCC	0.015	Num	Numeric (seconds). Window duration used in MFCC computation (function "To MFCC").
+timeStepMFCC	0.005	Num	Numeric (seconds). Time step used in MFCC computation (function "To MFCC").
+firstFilterFrequencyMFCC	100	Num	Numeric (mel). Frequency in mel scale of the first fillter used in filter bank for MFCC computation (function "To MFCC").
+distanceBetweenFiltersMFCC	100	Num	Numeric (mel). Distance in mel scale beween filters used in filter bank for MFCC computation (function "To MFCC").
+maximumFrequencyMFCC	0	Num	Numeric (mel). Default: 0. Maximum frequency in filter bank. Set to 0 to define automatically from other parameters.
+extractsDurationForCPPcomputationMilliseconds	100	Num	Numeric (milliseconds). Window duration for the computation of CPP and CPPS on a sliding window.
+timeStepPowerCepstrogram	0.002	Num	Numeric (seconds). Default: 0.002
+maxFrequencyPowerCepstrogram	5000	Num	Numeric (Hertz). Default: 5000
+preEmphasisStartFrequencyPowerCepstrogram	50	Num	Numeric (Hertz). Default: 50
+minF0forPeakProminenceComputation	60	Num	Numeric (Hertz). Default: 60
+maxF0forPeakProminenceComputation	330	Num	Numeric (Hertz). Default: 330
+interpolationMethodPeakProminenceComputation	parabolic	Txt	Possible values: none, parabolic, cubic, sinc70, sinc700. Default: parabolic
+trendLineQuefrencyMinValuePeakProminenceComputation	0.001	Num	Numeric (seconds). Default: 0.001
+trendLineQuefrencyMaxValuePeakProminenceComputation	0.01	Num	Numeric (seconds). Default: 0.05
+trendTypePeakProminenceComputation	Exponential decay	Txt	Possible values: "Straight", "Exponential decay". Default: "Exponential decay"
+fitMethodPeakProminenceComputation	Robust slow	Txt	Possible values: "Robust", "Least squares", "Robust slow". Default: "Robust slow"
+subtractTrendBeforeSmoothingCPPS	yes	Txt	Possible values: yes or no. Default: "yes"
+timeAveragingWindowCPPS	0.02	Num	Numeric (seconds). Default: 0.02
+quefrencyAveragingWindowCPPS	0.0005	Num	Numeric (seconds). Default: 0.0005
+peakSearchToleranceFactorCPPS	0.05	Num	Numeric (no unit), values in 0-1 range. Default: 0.05
